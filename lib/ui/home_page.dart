@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather_app/components/weather_item.dart';
 import 'package:flutter_weather_app/constants.dart';
+import 'package:flutter_weather_app/ui/detail_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -344,7 +345,13 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () => print('Tapped'),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => DetailPage(
+                                      dailyForecastWeather:
+                                          dailyWeatherForecast,
+                                    ))),
                         child: Text(
                           'Forecasts',
                           style: TextStyle(
@@ -362,6 +369,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 110,
                     child: ListView.builder(
+                      itemCount: hourlyWeatherForecast.length,
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
